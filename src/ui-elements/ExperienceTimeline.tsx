@@ -10,7 +10,7 @@ const ExperienceTimeline = () => {
         Experience Timeline
       </h2>
       <div className="relative pl-14 before:content-[''] before:absolute before:top-0 before:left-2 before:bottom-0 before:w-1.5 before:bg-gradient-to-b before:from-blue-400/70 before:to-blue-900/10 before:rounded-full">
-        {[...experiences].slice().map((exp, idx, arr) => (
+        {[...experiences].slice().map((exp, idx) => (
           <div key={exp.key || idx} className="mb-14 last:mb-0 relative group">
             <div className="absolute -left-3 top-4 w-6 h-6 bg-gradient-to-br from-blue-400 to-blue-700 border-4 border-white/40 rounded-full shadow-xl z-10 group-hover:scale-110 transition-transform"></div>
             <div className="bg-white/10 backdrop-blur-[6px] rounded-2xl shadow-2xl p-8 border border-white/10 hover:shadow-blue-400/20 transition-shadow duration-300 ml-4">
