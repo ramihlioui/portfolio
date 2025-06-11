@@ -76,15 +76,12 @@ function App() {
   }, []);
 
   return (
-    <div
-      className="w-screen h-screen flex justify-center items-center relative"
-      id="bgColour"
-    >
+    <div className=" flex justify-center items-center relative overflow-x-hidden">
       {fade > 0 &&
         shards.slice(0, Math.floor(shards.length / 2)).map((shard) => (
           <div
             key={shard.id}
-            className="absolute border border-white/20 rounded-lg shadow-lg transition-all duration-300 hover:bg-transparent hover:backdrop-blur-none"
+            className="absolute border border-white/20 rounded-lg shadow-lg transition-all duration-300 "
             style={{
               left: `calc(50vw - ${shard.size / 2}px + ${
                 shard.x - window.innerWidth / 2
