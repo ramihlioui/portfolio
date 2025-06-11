@@ -4,7 +4,11 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { useState } from "react";
-import { Tooltip } from "@/components/ui/tooltip"; // adjust import if needed
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCircleArrowDown,
+  faCircleArrowUp,
+} from "@fortawesome/free-solid-svg-icons";
 
 const images = import.meta.glob("./../assets/techno/*.{png,jpg,jpeg,svg}", {
   eager: true,
@@ -33,25 +37,21 @@ const Technologies = () => {
       id="glassmorphism"
       className="w-full max-w-5xl flex flex-col items-center p-4 mt-5"
     >
+      <h2 className="text-3xl text-white mb-10 tracking-tight drop-shadow-lg italic">
+        Technologies
+      </h2>
+      <div className="flex flex-wrap justify-center">{firstFive}</div>
       <Collapsible open={open} onOpenChange={setOpen}>
-        <div className="flex flex-wrap justify-between gap-4">
-          {firstFive}
-          {!open && rest.length > 0 && (
-            <Tooltip content="Show more">
-              <CollapsibleTrigger
-                className="rounded-full text-white px-4 py-2 cursor-pointer"
-                aria-label="Show more"
-              >
-                +{rest.length}
-              </CollapsibleTrigger>
-            </Tooltip>
-          )}
-        </div>
-        <CollapsibleContent>
-          <div className="flex flex-wrap justify-between gap-4 mt-4">
-            {rest}
-          </div>
+        <CollapsibleContent className="flex flex-wrap justify-center">
+          {rest}
         </CollapsibleContent>
+        <CollapsibleTrigger className="rounded-full mb-4">
+          {open ? (
+            <FontAwesomeIcon icon={faCircleArrowUp} />
+          ) : (
+            <FontAwesomeIcon icon={faCircleArrowDown} />
+          )}
+        </CollapsibleTrigger>
       </Collapsible>
     </div>
   );

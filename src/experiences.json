@@ -4,20 +4,40 @@
     "title": "Wevioo",
     "date": "2022 - Present",
     "subtitle": "Full Stack Developer",
-    "description": "Working on various projects, focusing on full stack development with a strong emphasis on React and Node.js. Involved in both frontend and backend development, ensuring seamless integration and performance."
+    "description": "Working on various projects, focusing on full stack development with a strong emphasis on React and Node.js. Involved in both frontend and backend development, ensuring seamless integration and performance.",
+    "tags": [
+      "React",
+      "Node.js",
+      "Full Stack",
+      "Frontend",
+      "Backend",
+      "Integration"
+    ]
   },
   {
     "key": "2",
     "title": "Engineering Degree",
     "date": "2022 - Present",
     "subtitle": "Sofware Engineeing Degree",
-    "description": "Pursuing a Software Engineering degree, enhancing my knowledge in software design, development methodologies, and project management. This program complements my practical experience with theoretical insights into the software engineering field."
+    "description": "Pursuing a Software Engineering degree, enhancing my knowledge in software design, development methodologies, and project management. This program complements my practical experience with theoretical insights into the software engineering field.",
+    "tags": [
+      "Software Engineering",
+      "Project Management",
+      "Design",
+      "Development"
+    ]
   },
   {
     "key": "1",
     "title": "Bachelor's Degree",
     "date": "2019 - 2022",
     "subtitle": "Computer Science",
-    "description": "Completed a Bachelor's degree in Computer Science, gaining a solid foundation in programming, algorithms, and software development principles. Engaged in various projects that enhanced my skills in both theoretical and practical aspects of computer science."
+    "description": "Completed a Bachelor's degree in Computer Science, gaining a solid foundation in programming, algorithms, and software development principles. Engaged in various projects that enhanced my skills in both theoretical and practical aspects of computer science.",
+    "tags": [
+      "Computer Science",
+      "Programming",
+      "Algorithms",
+      "Software Development"
+    ]
   }
 ]

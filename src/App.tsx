@@ -76,7 +76,10 @@ function App() {
   }, []);
 
   return (
-    <div className="w-screen h-screen flex justify-center items-center relative">
+    <div
+      className="w-screen h-screen flex justify-center items-center relative"
+      id="bgColour"
+    >
       {fade > 0 &&
         shards.slice(0, Math.floor(shards.length / 2)).map((shard) => (
           <div
@@ -97,7 +100,7 @@ function App() {
               background: "rgba(255, 255, 255, 0.07)",
               border: "1px solid rgba(255, 255, 255, 0.08)",
               backdropFilter: "blur(6.2px)",
-              zIndex: 10,
+              zIndex: 0,
               opacity: fade,
               pointerEvents: fade === 0 ? "none" : undefined,
               transition: "opacity 0.3s",
@@ -108,8 +111,9 @@ function App() {
         <div className="w-full max-w-5xl flex flex-col items-center mt-5">
           <AppHeader />
           <AboutMe />
-          <Technologies />
           <ExperienceTimeline />
+
+          <Technologies />
         </div>
       </div>
     </div>
