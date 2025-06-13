@@ -4,15 +4,19 @@ import React, {
   useEffect,
   useImperativeHandle,
   useMemo,
+  useRef,
   useState,
 } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import type {
-  VariantLabels,
-  Target,
-  TargetAndTransition,
-  Transition,
+import {
+  motion,
+  AnimatePresence,
+  type Transition,
+  type Target,
+  type VariantLabels,
+  type AnimationPlaybackControls,
+  type TargetAndTransition,
 } from "framer-motion";
+import { Segmenter } from "@formatjs/intl-segmenter";
 
 function cn(...classes: (string | undefined | null | boolean)[]): string {
   return classes.filter(Boolean).join(" ");
@@ -33,7 +37,11 @@ export interface RotatingTextProps
   texts: string[];
   transition?: Transition;
   initial?: boolean | Target | VariantLabels;
-  animate?: boolean | VariantLabels | TargetAndTransition;
+  animate?:
+    | boolean
+    | VariantLabels
+    | AnimationPlaybackControls
+    | TargetAndTransition;
   exit?: Target | VariantLabels;
   animatePresenceMode?: "sync" | "wait";
   animatePresenceInitial?: boolean;
@@ -73,15 +81,25 @@ const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>(
     },
     ref
   ) => {
-    const [currentTextIndex, setCurrentTextIndex] = useState<number>(0);
+    const [currentTextIndex, setCurrentTextIndex] = useState(0);
+    const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-    const splitIntoCharacters = (text: string): string[] => {
-      // Simple fallback for browsers without Intl.Segmenter
-      return Array.from(text);
-    };
+    // Memoize splitIntoCharacters for performance
+    const splitIntoCharacters = useMemo(() => {
+      if (typeof Segmenter !== "undefined") {
+        const segmenter = new Segmenter("en", { granularity: "grapheme" });
+        return (text: string) =>
+          Array.from(
+            segmenter.segment(text),
+            (segment) => (segment as { segment: string }).segment
+          );
+      }
+      return (text: string) => Array.from(text);
+    }, []);
 
+    // Memoize elements to avoid unnecessary recalculations
     const elements = useMemo(() => {
-      const currentText: string = texts[currentTextIndex];
+      const currentText = texts[currentTextIndex] || "";
       if (splitBy === "characters") {
         const words = currentText.split(" ");
         return words.map((word, i) => ({
@@ -101,28 +119,30 @@ const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>(
           needsSpace: i !== arr.length - 1,
         }));
       }
-
+      // Custom split
       return currentText.split(splitBy).map((part, i, arr) => ({
         characters: [part],
         needsSpace: i !== arr.length - 1,
       }));
-    }, [texts, currentTextIndex, splitBy]);
+    }, [texts, currentTextIndex, splitBy, splitIntoCharacters]);
 
     const getStaggerDelay = useCallback(
       (index: number, totalChars: number): number => {
-        const total = totalChars;
         if (staggerFrom === "first") return index * staggerDuration;
         if (staggerFrom === "last")
-          return (total - 1 - index) * staggerDuration;
+          return (totalChars - 1 - index) * staggerDuration;
         if (staggerFrom === "center") {
-          const center = Math.floor(total / 2);
+          const center = Math.floor(totalChars / 2);
           return Math.abs(center - index) * staggerDuration;
         }
         if (staggerFrom === "random") {
-          const randomIndex = Math.floor(Math.random() * total);
+          const randomIndex = Math.floor(Math.random() * totalChars);
           return Math.abs(randomIndex - index) * staggerDuration;
         }
-        return Math.abs((staggerFrom as number) - index) * staggerDuration;
+        if (typeof staggerFrom === "number") {
+          return Math.abs(staggerFrom - index) * staggerDuration;
+        }
+        return 0;
       },
       [staggerFrom, staggerDuration]
     );
@@ -130,50 +150,46 @@ const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>(
     const handleIndexChange = useCallback(
       (newIndex: number) => {
         setCurrentTextIndex(newIndex);
-        if (onNext) onNext(newIndex);
+        onNext?.(newIndex);
       },
       [onNext]
     );
 
     const next = useCallback(() => {
-      const nextIndex =
-        currentTextIndex === texts.length - 1
-          ? loop
-            ? 0
-            : currentTextIndex
-          : currentTextIndex + 1;
-      if (nextIndex !== currentTextIndex) {
-        handleIndexChange(nextIndex);
-      }
-    }, [currentTextIndex, texts.length, loop, handleIndexChange]);
+      setCurrentTextIndex((prev) => {
+        const nextIndex =
+          prev === texts.length - 1 ? (loop ? 0 : prev) : prev + 1;
+        if (nextIndex !== prev) onNext?.(nextIndex);
+        return nextIndex;
+      });
+    }, [texts.length, loop, onNext]);
 
     const previous = useCallback(() => {
-      const prevIndex =
-        currentTextIndex === 0
-          ? loop
-            ? texts.length - 1
-            : currentTextIndex
-          : currentTextIndex - 1;
-      if (prevIndex !== currentTextIndex) {
-        handleIndexChange(prevIndex);
-      }
-    }, [currentTextIndex, texts.length, loop, handleIndexChange]);
+      setCurrentTextIndex((prev) => {
+        const prevIndex =
+          prev === 0 ? (loop ? texts.length - 1 : prev) : prev - 1;
+        if (prevIndex !== prev) onNext?.(prevIndex);
+        return prevIndex;
+      });
+    }, [texts.length, loop, onNext]);
 
     const jumpTo = useCallback(
       (index: number) => {
-        const validIndex = Math.max(0, Math.min(index, texts.length - 1));
-        if (validIndex !== currentTextIndex) {
-          handleIndexChange(validIndex);
-        }
+        setCurrentTextIndex((prev) => {
+          const validIndex = Math.max(0, Math.min(index, texts.length - 1));
+          if (validIndex !== prev) onNext?.(validIndex);
+          return validIndex;
+        });
       },
-      [texts.length, currentTextIndex, handleIndexChange]
+      [texts.length, onNext]
     );
 
     const reset = useCallback(() => {
-      if (currentTextIndex !== 0) {
-        handleIndexChange(0);
-      }
-    }, [currentTextIndex, handleIndexChange]);
+      setCurrentTextIndex((prev) => {
+        if (prev !== 0) onNext?.(0);
+        return 0;
+      });
+    }, [onNext]);
 
     useImperativeHandle(
       ref,
@@ -188,8 +204,11 @@ const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>(
 
     useEffect(() => {
       if (!auto) return;
-      const intervalId = setInterval(next, rotationInterval);
-      return () => clearInterval(intervalId);
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      intervalRef.current = setInterval(next, rotationInterval);
+      return () => {
+        if (intervalRef.current) clearInterval(intervalRef.current);
+      };
     }, [next, rotationInterval, auto]);
 
     return (
@@ -217,44 +236,45 @@ const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>(
             layout
             aria-hidden="true"
           >
-            {elements.map((wordObj, wordIndex, array) => {
-              const previousCharsCount = array
-                .slice(0, wordIndex)
-                .reduce((sum, word) => sum + word.characters.length, 0);
-              return (
-                <span
-                  key={wordIndex}
-                  className={cn("inline-flex", splitLevelClassName)}
-                >
-                  {wordObj.characters.map((char, charIndex) => (
-                    <motion.span
-                      key={charIndex}
-                      initial={initial as Target | VariantLabels | boolean}
-                      animate={
-                        animate as TargetAndTransition | VariantLabels | boolean
-                      }
-                      exit={exit as Target | VariantLabels}
-                      transition={{
-                        ...transition,
-                        delay: getStaggerDelay(
-                          previousCharsCount + charIndex,
-                          array.reduce(
-                            (sum, word) => sum + word.characters.length,
-                            0
-                          )
-                        ),
-                      }}
-                      className={cn("inline-block", elementLevelClassName)}
-                    >
-                      {char}
-                    </motion.span>
-                  ))}
-                  {wordObj.needsSpace && (
-                    <span className="whitespace-pre"> </span>
-                  )}
-                </span>
+            {(() => {
+              const totalChars = elements.reduce(
+                (sum, word) => sum + word.characters.length,
+                0
               );
-            })}
+              let charOffset = 0;
+              return elements.map((wordObj, wordIndex) => {
+                const previousCharsCount = charOffset;
+                charOffset += wordObj.characters.length;
+                return (
+                  <span
+                    key={wordIndex}
+                    className={cn("inline-flex", splitLevelClassName)}
+                  >
+                    {wordObj.characters.map((char, charIndex) => (
+                      <motion.span
+                        key={charIndex}
+                        initial={initial}
+                        animate={animate}
+                        exit={exit}
+                        transition={{
+                          ...transition,
+                          delay: getStaggerDelay(
+                            previousCharsCount + charIndex,
+                            totalChars
+                          ),
+                        }}
+                        className={cn("inline-block", elementLevelClassName)}
+                      >
+                        {char}
+                      </motion.span>
+                    ))}
+                    {wordObj.needsSpace && (
+                      <span className="whitespace-pre"> </span>
+                    )}
+                  </span>
+                );
+              });
+            })()}
           </motion.div>
         </AnimatePresence>
       </motion.span>

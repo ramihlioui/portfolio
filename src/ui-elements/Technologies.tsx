@@ -1,6 +1,6 @@
-import RotatingText from "@/y/RotatingText/RotatingText";
 import FlowingMenu from "@/Components/FlowingMenu/FlowingMenu";
 import techs from "../tech.json";
+import RotatingText from "@/TextAnimations/RotatingText/RotatingText";
 
 const Technologies = () => {
   return (
@@ -8,7 +8,7 @@ const Technologies = () => {
       <h1 className=" flex flex-row text-lg text-white mb-4 text-left items-center justify-start gap-2  italic">
         I can work with
         <RotatingText
-          texts={["Java", "Javascript", "Typescript", "SQL"]}
+          texts={["Java", "Javascript", "Typescript", "SQL", "and MORE!"]}
           mainClassName="px-2 sm:px-2 md:px-3 bg-gradient-to-r from-emerald-300 to-indigo-600 text-black font-bold overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
           staggerFrom={"last"}
           staggerDuration={0.025}

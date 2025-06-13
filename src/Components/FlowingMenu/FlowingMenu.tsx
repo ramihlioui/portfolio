@@ -38,15 +38,15 @@ const FlowingMenu: React.FC<FlowingMenuProps> = ({ items = [] }) => {
     return (
       <div className="flex items-center h-full">
         {[...items, ...items, ...items, ...items].map((item, idx) => (
-          <React.Fragment key={idx}>
-            <span className="text-[#060010] uppercase font-normal text-[4vh] leading-[1.2] px-[2vw] whitespace-nowrap">
-              {item.text}
-            </span>
+          <div key={idx} className="flex items-center shrink-0">
             <div
               className="w-[10vw] h-[10vh] min-w-[100px] min-h-[80px] mx-[2vw] bg-contain bg-no-repeat bg-center"
               style={{ backgroundImage: `url(${item.image})` }}
             />
-          </React.Fragment>
+            <span className="text-[#060010] uppercase font-normal text-[4vh] leading-[1.2] px-[2vw] whitespace-nowrap">
+              {item.text}
+            </span>
+          </div>
         ))}
       </div>
     );
@@ -54,7 +54,6 @@ const FlowingMenu: React.FC<FlowingMenuProps> = ({ items = [] }) => {
 
   return (
     <div className="w-full h-full overflow-hidden relative bg-transparent">
-      {/* Animated marquee - always visible */}
       <div
         ref={marqueeRef}
         className="absolute top-0 left-0 w-full h-full overflow-hidden"
