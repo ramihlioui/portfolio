@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { gsap } from "gsap";
 
 interface MenuItemProps {
-  link: string;
   text: string;
   image: string;
 }

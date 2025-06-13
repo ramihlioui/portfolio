@@ -2,11 +2,6 @@ import { Card } from "@/components/ui/card";
 import boy from "./../assets/boy.png";
 import SplitText from "@/TextAnimations/SplitText/SplitText";
 
-const images = import.meta.glob("./../assets/contact/*.{png,jpg,jpeg,svg}", {
-  eager: true,
-});
-const imageArr = Object.values(images);
-
 const AboutMe = () => {
   return (
     <Card className="bg-transparent border-0">
