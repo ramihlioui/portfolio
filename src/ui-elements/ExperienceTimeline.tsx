@@ -9,6 +9,7 @@ const ExperienceTimeline = () => {
       <h2 className="text-3xl text-white mb-10 tracking-tight drop-shadow-lg italic">
         Experience Timeline
       </h2>
+
       <div className="relative pl-14 before:content-[''] before:absolute before:top-0 before:left-2 before:bottom-0 before:w-1.5 before:bg-gradient-to-b before:from-blue-400/70 before:to-blue-900/10 before:rounded-full">
         {[...experiences].slice().map((exp, idx) => (
           <div key={exp.key || idx} className="mb-14 last:mb-0 relative group">
@@ -19,7 +20,7 @@ const ExperienceTimeline = () => {
                   {exp.title}
                 </div>
                 <div className="text-xs text-blue-200/80 italic mt-1 md:mt-0 md:ml-4 whitespace-nowrap">
-                  {exp.date}
+                  {exp.handle}
                 </div>
               </div>
               <div className="text-white/90 text-left leading-relaxed">

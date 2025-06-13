@@ -1,10 +1,11 @@
 [
   {
-    "key": "3",
+    "key":"1",
     "title": "Wevioo",
-    "date": "2022 - Present",
-    "subtitle": "Full Stack Developer",
+    "handle": "2022 - Present",
+    "subtitle":"Full Stack Developer",
     "description": "Working on various projects, focusing on full stack development with a strong emphasis on React and Node.js. Involved in both frontend and backend development, ensuring seamless integration and performance.",
+    "gradient": "linear-gradient(210deg,#4F46E5, #000)",
     "tags": [
       "React",
       "Node.js",
@@ -15,11 +16,13 @@
     ]
   },
   {
-    "key": "2",
+        "key":"2",
+
     "title": "Engineering Degree",
-    "date": "2022 - Present",
+    "handle": "2022 - Present",
     "subtitle": "Sofware Engineeing Degree",
     "description": "Pursuing a Software Engineering degree, enhancing my knowledge in software design, development methodologies, and project management. This program complements my practical experience with theoretical insights into the software engineering field.",
+    "gradient":"linear-gradient(210deg, #10B981, #000)",
     "tags": [
       "Software Engineering",
       "Project Management",
@@ -28,11 +31,13 @@
     ]
   },
   {
-    "key": "1",
+        "key":"3",
+
     "title": "Bachelor's Degree",
-    "date": "2019 - 2022",
+    "handle": "2019 - 2022",
     "subtitle": "Computer Science",
     "description": "Completed a Bachelor's degree in Computer Science, gaining a solid foundation in programming, algorithms, and software development principles. Engaged in various projects that enhanced my skills in both theoretical and practical aspects of computer science.",
+    "gradient":"linear-gradient(210deg, #F59E0B, #000)",
     "tags": [
       "Computer Science",
       "Programming",
