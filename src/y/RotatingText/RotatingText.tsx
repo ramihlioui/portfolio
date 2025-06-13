@@ -13,10 +13,9 @@ import {
   type Transition,
   type Target,
   type VariantLabels,
-  type AnimationPlaybackControls,
   type TargetAndTransition,
+  type LegacyAnimationControls,
 } from "framer-motion";
-import { Segmenter } from "@formatjs/intl-segmenter";
 
 function cn(...classes: (string | undefined | null | boolean)[]): string {
   return classes.filter(Boolean).join(" ");
@@ -40,9 +39,9 @@ export interface RotatingTextProps
   animate?:
     | boolean
     | VariantLabels
-    | AnimationPlaybackControls
-    | TargetAndTransition;
-  exit?: Target | VariantLabels;
+    | TargetAndTransition
+    | LegacyAnimationControls;
+  exit?: Target | VariantLabels | TargetAndTransition;
   animatePresenceMode?: "sync" | "wait";
   animatePresenceInitial?: boolean;
   rotationInterval?: number;
@@ -86,12 +85,17 @@ const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>(
 
     // Memoize splitIntoCharacters for performance
     const splitIntoCharacters = useMemo(() => {
-      if (typeof Segmenter !== "undefined") {
-        const segmenter = new Segmenter("en", { granularity: "grapheme" });
+      const SegmenterCtor =
+        typeof Intl !== "undefined" &&
+        typeof (Intl as any).Segmenter !== "undefined"
+          ? (Intl as any).Segmenter
+          : undefined;
+      if (SegmenterCtor) {
+        const segmenter = new SegmenterCtor("en", { granularity: "grapheme" });
         return (text: string) =>
           Array.from(
             segmenter.segment(text),
-            (segment) => (segment as { segment: string }).segment
+            (segment: any) => segment.segment
           );
       }
       return (text: string) => Array.from(text);
@@ -145,14 +149,6 @@ const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>(
         return 0;
       },
       [staggerFrom, staggerDuration]
-    );
-
-    const handleIndexChange = useCallback(
-      (newIndex: number) => {
-        setCurrentTextIndex(newIndex);
-        onNext?.(newIndex);
-      },
-      [onNext]
     );
 
     const next = useCallback(() => {
@@ -253,9 +249,27 @@ const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>(
                     {wordObj.characters.map((char, charIndex) => (
                       <motion.span
                         key={charIndex}
-                        initial={initial}
-                        animate={animate}
-                        exit={exit}
+                        initial={
+                          initial as
+                            | TargetAndTransition
+                            | VariantLabels
+                            | boolean
+                            | undefined
+                        }
+                        animate={
+                          animate as
+                            | TargetAndTransition
+                            | VariantLabels
+                            | boolean
+                            | LegacyAnimationControls
+                            | undefined
+                        }
+                        exit={
+                          exit as
+                            | TargetAndTransition
+                            | VariantLabels
+                            | undefined
+                        }
                         transition={{
                           ...transition,
                           delay: getStaggerDelay(
