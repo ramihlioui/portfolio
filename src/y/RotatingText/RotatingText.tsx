@@ -6,14 +6,12 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import {
-  motion,
-  AnimatePresence,
-  type VariantLabels,
-  type Target,
-  type AnimationControls,
-  type TargetAndTransition,
-  type Transition,
+import { motion, AnimatePresence } from "framer-motion";
+import type {
+  VariantLabels,
+  Target,
+  TargetAndTransition,
+  Transition,
 } from "framer-motion";
 
 function cn(...classes: (string | undefined | null | boolean)[]): string {
@@ -35,7 +33,7 @@ export interface RotatingTextProps
   texts: string[];
   transition?: Transition;
   initial?: boolean | Target | VariantLabels;
-  animate?: boolean | VariantLabels | AnimationControls | TargetAndTransition;
+  animate?: boolean | VariantLabels | TargetAndTransition;
   exit?: Target | VariantLabels;
   animatePresenceMode?: "sync" | "wait";
   animatePresenceInitial?: boolean;
@@ -78,13 +76,7 @@ const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>(
     const [currentTextIndex, setCurrentTextIndex] = useState<number>(0);
 
     const splitIntoCharacters = (text: string): string[] => {
-      if (typeof Intl !== "undefined" && Intl.Segmenter) {
-        const segmenter = new Intl.Segmenter("en", { granularity: "grapheme" });
-        return Array.from(
-          segmenter.segment(text),
-          (segment) => segment.segment
-        );
-      }
+      // Simple fallback for browsers without Intl.Segmenter
       return Array.from(text);
     };
 
@@ -237,19 +229,11 @@ const RotatingText = forwardRef<RotatingTextRef, RotatingTextProps>(
                   {wordObj.characters.map((char, charIndex) => (
                     <motion.span
                       key={charIndex}
-                      initial={
-                        typeof initial === "object" ||
-                        typeof initial === "boolean"
-                          ? initial
-                          : undefined
-                      }
+                      initial={initial as Target | VariantLabels | boolean}
                       animate={
-                        typeof animate === "object" ||
-                        typeof animate === "boolean"
-                          ? animate
-                          : undefined
+                        animate as TargetAndTransition | VariantLabels | boolean
                       }
-                      exit={typeof exit === "object" ? exit : undefined}
+                      exit={exit as Target | VariantLabels}
                       transition={{
                         ...transition,
                         delay: getStaggerDelay(
