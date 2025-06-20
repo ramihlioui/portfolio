@@ -1,22 +1,38 @@
 [
-      {
-    "image": "https://i.pravatar.cc/300?img=1",
-    "title": "Sarah Johnson",
-    "subtitle": "Frontend Developer",
-    "handle": "@sarahjohnson",
-    "borderColor": "#3B82F6",
-    "gradient": "linear-gradient(145deg, #3B82F6, #000)",
-    "url": "ramihlioui2@gmail.com"
-  },
-
   {
-    "image": "https://i.pravatar.cc/300?img=1",
-    "title": "Sarah Johnson",
-    "subtitle": "Frontend Developer",
-    "handle": "@sarahjohnson",
-    "borderColor": "#3B82F6",
-    "gradient": "linear-gradient(145deg, #3B82F6, #000)",
-    "url": "https://github.com/sarahjohnson"
+    "image": "https://cdn-icons-png.flaticon.com/512/732/732200.png",
+    "title": "Gmail",
+    "subtitle": "ramihlioui2@gmail.com",
+    "handle": "Email Me",
+    "borderColor": "#EA4335",
+    "gradient": "linear-gradient(145deg, #EA4335, #000)",
+    "url": "mailto:ramihlioui2@gmail.com"
+  },
+  {
+    "image": "https://cdn-icons-png.flaticon.com/512/174/174857.png",
+    "title": "LinkedIn",
+    "subtitle": "linkedin.com/in/yourprofile",
+    "handle": "Connect",
+    "borderColor": "#0A66C2",
+    "gradient": "linear-gradient(145deg, #0A66C2, #000)",
+    "url": "https://linkedin.com/in/yourprofile"
+  },
+  {
+    "image": "https://cdn-icons-png.flaticon.com/512/25/25231.png",
+    "title": "GitHub",
+    "subtitle": "github.com/yourusername",
+    "handle": "View Code",
+    "borderColor": "#333",
+    "gradient": "linear-gradient(145deg, #333, #000)",
+    "url": "https://github.com/yourusername"
+  },
+  {
+    "image": "https://cdn-icons-png.flaticon.com/512/733/733585.png",
+    "title": "WhatsApp",
+    "subtitle": "+1234567890",
+    "handle": "Chat",
+    "borderColor": "#25D366",
+    "gradient": "linear-gradient(145deg, #25D366, #000)",
+    "url": "https://wa.me/1234567890"
   }
-
 ]

@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import boy from "./../assets/boy.png";
 import SplitText from "@/TextAnimations/SplitText/SplitText";
+import ContactButtons from "@/ui-elements/ContactButtons";
 
 const AboutMe = () => {
   return (
@@ -29,6 +30,10 @@ const AboutMe = () => {
             and I'm always eager to learn new technologies and improve my
             skills.
           </p>
+          {/* Glowing Contact Buttons */}
+          <div className="mt-6 flex">
+            <ContactButtons />
+          </div>
         </div>
         <div className="flex-1 w-1/3 flex justify-center">
           <img

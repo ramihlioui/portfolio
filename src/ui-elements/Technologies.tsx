@@ -19,6 +19,7 @@ const Technologies = () => {
       </h1>
       <div style={{ height: "300px", position: "relative" }}>
         <FlowingMenu items={techs} />
+
       </div>
     </div>
   );
