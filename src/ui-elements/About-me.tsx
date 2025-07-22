@@ -29,24 +29,6 @@ const AboutMe = () => {
             and I'm always eager to learn new technologies and improve my
             skills.
           </p>
-          <div className="flex gap-4 mt-2">
-            <a
-              href="src/cv/Rami_Hlioui_Resume.pdf"
-              download
-              id="glassmorphism"
-              className="p-3 text-white border border-white/10 rounded transition-colors"
-            >
-              Download Resume (EN)
-            </a>
-            <a
-              href="src/cv/Rami_Hlioui_CV.pdf"
-              download
-              id="glassmorphism"
-              className="p-3 text-white border border-white/10 rounded transition-colors"
-            >
-              Télécharger CV (FR)
-            </a>
-          </div>
         </div>
         <div className="flex-1 w-1/3 flex justify-center">
           <img

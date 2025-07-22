@@ -1,29 +1,17 @@
-import angular from "./../assets/techno/angular.svg";
-import linux from "./../assets/techno/linux.png";
-import mysql from "./../assets/techno/mysql.png";
-import nodejs from "./../assets/techno/nodejs.png";
-import springboot from "./../assets/techno/springboot.svg";
-import postgre from "./../assets/techno/postgre.png";
-import docker from "./../assets/techno/docker.png";
-import gitlab from "./../assets/techno/gitlab.png";
-import jenkins from "./../assets/techno/jenkins.svg";
-
-const IMGS = [
-  { text: "Angular", image: angular },
-  { text: "Linux", image: linux },
-  { text: "MySQL", image: mysql },
-  { text: "NodeJS", image: nodejs },
-  { text: "Spring Boot", image: springboot },
-  { text: "PostgreSQL", image: postgre },
-  { text: "Docker", image: docker },
-  { text: "GitLab", image: gitlab },
-  { text: "Jenkins", image: jenkins },
-];
+import angular from "../assets/techno/angular.png";
+import linux from "../assets/techno/linux.png";
+import mysql from "../assets/techno/mysql.png";
+import nodejs from "../assets/techno/node.png";
+import springboot from "../assets/techno/spring.png";
+import postgre from "../assets/techno/postgre.png";
+import docker from "../assets/techno/docker.png";
+import gitlab from "../assets/techno/gitlab.png";
+import jenkins from "../assets/techno/jenkins.png";
 
 const Technologies = () => {
   return (
     <div className="w-full max-w-5xl flex flex-col  p-4 mt-5">
-      <h1 className="flex flex-row text-lg text-white mb-4 text-center items-center justify-center gap-2 italic">
+      <h1 className="flex flex-row text-2xl text-white mb-4 mt-8 text-center items-center justify-center gap-2 italic">
         I've worked with
       </h1>
 
