@@ -1,11 +1,10 @@
-import { Card } from "@/components/ui/card";
+import { Card } from "@/Components/ui/card";
 import boy from "./../assets/boy.png";
 import SplitText from "@/TextAnimations/SplitText/SplitText";
-import ContactButtons from "@/ui-elements/ContactButtons";
 
 const AboutMe = () => {
   return (
-    <Card className="bg-transparent border-0">
+    <Card className="bg-transparent border-0" id="glassmorphism">
       <div className="flex flex-row items-center mx-auto px-4 py-8 gap-6">
         <div className="flex-2 w-2/3 pl-4">
           <SplitText
@@ -30,9 +29,23 @@ const AboutMe = () => {
             and I'm always eager to learn new technologies and improve my
             skills.
           </p>
-          {/* Glowing Contact Buttons */}
-          <div className="mt-6 flex">
-            <ContactButtons />
+          <div className="flex gap-4 mt-2">
+            <a
+              href="src/cv/Rami_Hlioui_Resume.pdf"
+              download
+              id="glassmorphism"
+              className="p-3 text-white border border-white/10 rounded transition-colors"
+            >
+              Download Resume (EN)
+            </a>
+            <a
+              href="src/cv/Rami_Hlioui_CV.pdf"
+              download
+              id="glassmorphism"
+              className="p-3 text-white border border-white/10 rounded transition-colors"
+            >
+              Télécharger CV (FR)
+            </a>
           </div>
         </div>
         <div className="flex-1 w-1/3 flex justify-center">

@@ -1,11 +1,12 @@
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+
+import { Button } from "@/Components/ui/button";
+import { Card } from "@/Components/ui/card";
 import { TypeAnimation } from "react-type-animation";
 
 export default function AppHeader() {
   return (
     <Card
-      className=" w-full max-w-4xl p-6 m-4 flex flex-row justify-between text-center text-white  italic "
+      className=" w-full max-w-4xl p-3 pl-6 pr-6 m-4 flex flex-row justify-between rounded-b-full rounded text-center text-white italic "
       id="glassmorphism"
     >
       <TypeAnimation

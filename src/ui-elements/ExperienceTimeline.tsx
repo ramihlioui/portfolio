@@ -2,7 +2,10 @@ import experiences from "../experiences.json";
 
 const ExperienceTimeline = () => {
   return (
-    <section className="flex justify-center pt-20 pb-20 w-3xl">
+    <section
+      id="glassmorphism"
+      className="flex justify-center pt-20 pb-20 px-20 w-4xl"
+    >
       <div className="">
         <ul>
           {experiences.map((exp, idx) => (
