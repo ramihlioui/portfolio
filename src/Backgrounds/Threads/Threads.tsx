@@ -137,7 +137,7 @@ const Threads: React.FC<ThreadsProps> = ({
   ...rest
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const animationFrameId = useRef<number>();
+  const animationFrameId = useRef<number>(0);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -160,7 +160,7 @@ const Threads: React.FC<ThreadsProps> = ({
           value: new Color(
             gl.canvas.width,
             gl.canvas.height,
-            gl.canvas.width / gl.canvas.height,
+            gl.canvas.width / gl.canvas.height
           ),
         },
         uColor: { value: new Color(...color) },
