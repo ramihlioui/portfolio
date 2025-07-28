@@ -27,9 +27,9 @@ export default function AppHeader() {
           className="relative px-6 py-2 rounded overflow-hidden bg-transparent border-none focus:outline-none"
         >
           <span className="relative z-10 text-white">Contact me</span>
-          <span className="absolute inset-0 z-0 pointer-events-none w-full h-full">
-            <RippleGrid style={{ width: "100%", height: "100%" }} />
-          </span>
+          <div className="absolute inset-0 z-0 pointer-events-none w-full h-full ">
+            <RippleGrid vignetteStrength={5} />
+          </div>
         </button>
       </div>
     </Card>
