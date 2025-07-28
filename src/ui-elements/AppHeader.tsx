@@ -24,7 +24,7 @@ export default function AppHeader() {
               .getElementById("footer")
               ?.scrollIntoView({ behavior: "smooth" });
           }}
-          className="relative px-6 py-2 rounded overflow-hidden bg-transparent border-none focus:outline-none"
+          className="relative rounded overflow-hidden bg-transparent border-none focus:outline-none"
         >
           <span className="relative z-10 text-white">Contact me</span>
           <div className="absolute inset-0 z-0 pointer-events-none w-full h-full ">
