@@ -13,12 +13,11 @@ const Footer = () => {
       className="w-full  max-w-5xl flex  flex-col justify-evenly mt-10"
     >
       <div className="absolute w-full h-full inset-0 pointer-events-none">
-        {" "}
         <Threads />
       </div>
       <div className="flex flex-col  gap-4 mt-2">
         <span className="text-white mb-4 italic">View my resumes :</span>
-        <div>
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4">
           <a
             href={english_cv}
             download
