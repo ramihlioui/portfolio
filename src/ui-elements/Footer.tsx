@@ -2,6 +2,8 @@ import github from "../assets/contact/github.png";
 import linkedin from "../assets/contact/linkedin.png";
 import gmail from "../assets/contact/gmail.png";
 import whatsapp from "../assets/contact/whatsapp.png";
+import french_cv from "../cv/Rami_Hlioui_CV.pdf";
+import english_cv from "../cv/Rami_Hlioui_Resume.pdf";
 
 const Footer = () => {
   return (
@@ -13,7 +15,7 @@ const Footer = () => {
         <span className="text-white mb-4 italic">View my resumes :</span>
         <div>
           <a
-            href="src/cv/Rami_Hlioui_Resume.pdf"
+            href={english_cv}
             download
             id="glassmorphism"
             className="p-3 text-white border border-white/10 rounded transition-colors"
@@ -21,7 +23,7 @@ const Footer = () => {
             Download Resume (EN)
           </a>
           <a
-            href="src/cv/Rami_Hlioui_CV.pdf"
+            href={french_cv}
             download
             id="glassmorphism"
             className="p-3 text-white border border-white/10 rounded transition-colors"
