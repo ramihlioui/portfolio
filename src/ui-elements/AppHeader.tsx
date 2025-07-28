@@ -1,4 +1,5 @@
-import { Button } from "@/Components/ui/button";
+import RippleGrid from "@/Backgrounds/RippleGrid/RippleGrid";
+
 import { Card } from "@/Components/ui/card";
 import { TypeAnimation } from "react-type-animation";
 
@@ -15,15 +16,22 @@ export default function AppHeader() {
         repeat={Infinity}
         style={{ fontSize: "1.25em", display: "inline-block" }}
       />
-      <a href="#footer">
-        <Button className="slow-pulse">
-          contact me{" "}
-          <span className="relative flex size-3">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"></span>
-            <span className="relative inline-flex size-3 rounded-full bg-sky-500"></span>
+
+      <div className="relative flex items-center gap-2">
+        <button
+          onClick={() => {
+            document
+              .getElementById("footer")
+              ?.scrollIntoView({ behavior: "smooth" });
+          }}
+          className="relative px-6 py-2 rounded overflow-hidden bg-transparent border-none focus:outline-none"
+        >
+          <span className="relative z-10 text-white">Contact me</span>
+          <span className="absolute inset-0 z-0 pointer-events-none">
+            <RippleGrid />
           </span>
-        </Button>
-      </a>
+        </button>
+      </div>
     </Card>
   );
 }
