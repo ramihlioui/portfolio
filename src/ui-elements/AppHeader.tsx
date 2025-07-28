@@ -28,7 +28,7 @@ export default function AppHeader() {
         >
           <span className="relative z-10 text-white">Contact me</span>
           <div className="absolute inset-0 z-0 pointer-events-none w-full h-full ">
-            <RippleGrid vignetteStrength={5} gridSize={15} />
+            <RippleGrid vignetteStrength={5} gridSize={5} gridThickness={20} />
           </div>
         </button>
       </div>
